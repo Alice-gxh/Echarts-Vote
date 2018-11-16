@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>联通人气团队投票</title>
+</head>
+
+<body>
+    <div id="vote" style="width: 1080px;height:500px;margin:200px auto;"></div>
+    <script src="js/echarts-en.min.js"></script>
+    <script>
+    var MyChart = echarts.init(document.getElementById('vote'));
+    option = {
+        title: {
+            x: 'center',
+            y: 'top',
+            textAlign: 'left',
+            text: '中国联通首届“财务服务支撑解决方案第一赛区对抗赛”我最喜爱的财务团队',
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            },
+            formatter: function(params) {
+                return '投票率：' + params[0].value + '%' + '</br>' + '投票数：' + params[0].data.count + '<br/>' + '总人数：' + params[0].data.amount;
+            }
+        },
+        calculable: true,
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true,
+        },
+        xAxis: [{
+            type: 'category',
+            /*show: false, */ //是否显示横坐标
+            axisTick: {
+                alignWithLabel: true
+            },
+            data: ['湖北分公司', '山东分公司', '山西分公司', '内蒙古分公司', '辽宁分公司', '上海分公司', '江苏分公司', '广西分公司', '云南分公司', '海南分公司', '宁夏分公司']
+        }],
+        yAxis: [{
+            type: 'value',
+            /* show: false*/ //是否显示纵坐标
+        }],
+        series: [{
+            name: '投票数',
+            type: 'bar',
+            barWidth: '35%',
+            data: [{
+                value: 50,
+                count: 5,
+                amount: 100
+            }, {
+                value: 20,
+                count: 5,
+                amount: 100
+            }, {
+                value: 50,
+                count: 5,
+                amount: 290
+            }, {
+                value: 70,
+                count: 5,
+                amount: 10
+            }, {
+                value: 30,
+                count: 5,
+                amount: 160
+            }, {
+                value: 95,
+                count: 5,
+                amount: 400
+            }, {
+                value: 10,
+                count: 5,
+                amount: 500
+            }, {
+                value: 75,
+                count: 5,
+                amount: 200
+            }, {
+                value: 11,
+                count: 5,
+                amount: 110
+            }, {
+                value: 60,
+                count: 5,
+                amount: 10
+            }, {
+                value: 25,
+                count: 1,
+                amount: 300
+            }],
+            itemStyle: {
+                normal: {
+                    /* color: ['#D71920'],*/ //每个柱子的颜色一样
+                    color: function(params) {//每个柱子的颜色即为colorList数组中的每一项，如果柱子数量多于colorList的长度，则柱子颜色循环使用该数组
+                        var colorList = [
+                            '#FF99FF', '#F51334', '#33CCCC', '#6633FF', '#FF99CC',
+                            '#27727B', '#1BCA63', '#FF0066', '#9966FF', '#33CCCC', '#FF3366'
+                        ];
+                        return colorList[params.dataIndex]
+                    },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: '{c}%'
+                    }
+                }
+            },
+        }]
+    };
+   
+    MyChart.setOption(option);
+
+    // 图表清空-------------------
+    //MyChart.clear();
+
+    // 图表释放-------------------
+    //MyChart.dispose();
+    </script>
+</body>
+
+</html>
